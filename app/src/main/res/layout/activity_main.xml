@@ -6,22 +6,173 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/txt"
+    <EditText
+        android:id="@+id/numSetting3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Here comes the data!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="setting 3"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSetting3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSetting3"
+        app:layout_constraintTop_toBottomOf="@+id/numSetting2" />
+
+    <EditText
+        android:id="@+id/numSetting2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="setting 2"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSetting2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSetting2"
+        app:layout_constraintTop_toBottomOf="@+id/numSetting1" />
+
+    <EditText
+        android:id="@+id/numSetting1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="setting 1"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSetting1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSetting1"
+        app:layout_constraintTop_toBottomOf="@+id/btnToggleArm" />
 
     <Button
-        android:id="@+id/btn_addData"
+        android:id="@+id/btnSetting1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add data!"
-        tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="78dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Setting 1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnToggleArm" />
+
+    <Button
+        android:id="@+id/btnSetting2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Setting 2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSetting1" />
+
+    <Button
+        android:id="@+id/btnSetting3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Setting 3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSetting2" />
+
+    <ToggleButton
+        android:id="@+id/btnToggleArm"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="ToggleButton"
+        android:textOff="Robo Arm 1"
+        android:textOn="Robo Arm 2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtRotation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnSetting4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Setting 4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSetting3" />
+
+    <Button
+        android:id="@+id/btnSetting5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Setting 5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSetting4" />
+
+    <EditText
+        android:id="@+id/numSetting4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Setting 4"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSetting4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSetting4"
+        app:layout_constraintTop_toBottomOf="@+id/numSetting3" />
+
+    <EditText
+        android:id="@+id/numSetting5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Setting 5"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSetting5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSetting5"
+        app:layout_constraintTop_toBottomOf="@+id/numSetting4" />
+
+    <Button
+        android:id="@+id/btnSendAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Send all"
+        app:layout_constraintBottom_toTopOf="@+id/txtRotation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
