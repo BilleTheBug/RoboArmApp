@@ -15,7 +15,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:hint="setting 3"
+        android:hint="elbow"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/btnSetting3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:hint="setting 2"
+        android:hint="shoulder"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/btnSetting2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +47,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:hint="setting 1"
+        android:hint="foot"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/btnSetting1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Setting 1"
+        android:text="Foot"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnToggleArm" />
 
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Setting 2"
+        android:text="Shoulder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSetting1" />
 
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Setting 3"
+        android:text="Elbow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSetting2" />
 
@@ -103,14 +103,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="TextView"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSendAll" />
 
     <Button
         android:id="@+id/btnSetting4"
@@ -118,7 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Setting 4"
+        android:text="wrist"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSetting3" />
 
@@ -128,7 +128,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Setting 5"
+        android:text="Hand"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSetting4" />
 
@@ -140,7 +140,7 @@
         android:layout_marginTop="22dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Setting 4"
+        android:hint="wrist"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/btnSetting4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -156,7 +156,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:hint="Setting 5"
+        android:hint="hand"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/btnSetting5"
         app:layout_constraintEnd_toEndOf="parent"
@@ -168,11 +168,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="Send all"
-        app:layout_constraintBottom_toTopOf="@+id/txtRotation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numSetting5" />
 
 </android.support.constraint.ConstraintLayout>

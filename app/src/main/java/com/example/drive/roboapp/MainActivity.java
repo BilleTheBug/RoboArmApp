@@ -26,24 +26,23 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    EditText numSetting1;
-    EditText numSetting2;
-    EditText numSetting3;
-    EditText numSetting4;
-    EditText numSetting5;
+    EditText footSetting;
+    EditText shoulderSetting;
+    EditText elbowSetting;
+    EditText wristSetting;
+    EditText handSetting;
     TextView txtRotation;
-    Button btnSetting1;
-    Button btnSetting2;
-    Button btnSetting3;
-    Button btnSetting4;
-    Button btnSetting5;
+    Button btnFoot;
+    Button btnShoulder;
+    Button btnElbow;
+    Button btnWrist;
+    Button btnHand;
     Button btnSendAll;
     ToggleButton btnToggleArm;
     DocumentReference robo1settingsDocRef;
     DocumentReference robo2settingsDocRef;
     DocumentReference robo1rotationDocRef;
     DocumentReference robo2rotationDocRef;
-
 
 
     @Override
@@ -64,57 +63,91 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeComponents() {
-        numSetting1 = findViewById(R.id.numSetting1);
-        numSetting2 = findViewById(R.id.numSetting2);
-        numSetting3 = findViewById(R.id.numSetting3);
-        numSetting4 = findViewById(R.id.numSetting4);
-        numSetting5 = findViewById(R.id.numSetting5);
-        btnSetting1 = findViewById(R.id.btnSetting1);
-        btnSetting2 = findViewById(R.id.btnSetting2);
-        btnSetting3 = findViewById(R.id.btnSetting3);
-        btnSetting4 = findViewById(R.id.btnSetting4);
-        btnSetting5 = findViewById(R.id.btnSetting5);
+        footSetting = findViewById(R.id.numSetting1);
+        shoulderSetting = findViewById(R.id.numSetting2);
+        elbowSetting = findViewById(R.id.numSetting3);
+        wristSetting = findViewById(R.id.numSetting4);
+        handSetting = findViewById(R.id.numSetting5);
+        btnFoot = findViewById(R.id.btnSetting1);
+        btnShoulder = findViewById(R.id.btnSetting2);
+        btnElbow = findViewById(R.id.btnSetting3);
+        btnWrist = findViewById(R.id.btnSetting4);
+        btnHand = findViewById(R.id.btnSetting5);
         btnSendAll = findViewById(R.id.btnSendAll);
         txtRotation = findViewById(R.id.txtRotation);
         btnToggleArm = findViewById(R.id.btnToggleArm);
     }
 
+//    private void addSnapshotListeners() {
+//        DocumentReference settingsDocRef;
+//        DocumentReference rotationDocRef;
+//        if(btnToggleArm.isChecked()) {
+//            settingsDocRef = robo2settingsDocRef;
+//            rotationDocRef = robo2rotationDocRef;
+//        }
+//        else
+//        {
+//            settingsDocRef = robo1settingsDocRef;
+//            rotationDocRef = robo1rotationDocRef;
+//        }
+//        settingsDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot snapshot,
+//                                @Nullable FirebaseFirestoreException e) {
+//                if (e != null) {
+//                    Toast.makeText(MainActivity.this, "listen failed", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                if (snapshot != null && snapshot.exists()) {
+//                    try {
+//                        footSetting.setText(snapshot.get("setting1").toString());
+//                        shoulderSetting.setText(snapshot.get("setting2").toString());
+//                        elbowSetting.setText(snapshot.get("setting3").toString());
+//                    }
+//                    catch (Exception ex)
+//                    {
+//                        Toast.makeText(MainActivity.this, "Failed to get data", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(MainActivity.this, "No data available", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//        rotationDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot snapshot,
+//                                @Nullable FirebaseFirestoreException e) {
+//                if (e != null) {
+//                    Toast.makeText(MainActivity.this, "listen failed", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (snapshot != null && snapshot.exists()) {
+//                    try {
+//                        txtRotation.setText(String.format("Rotation:\nx: %s, y: %s, z: %s",
+//                                snapshot.get("x").toString(),
+//                                snapshot.get("y").toString(),
+//                                snapshot.get("z").toString()));
+//                    }
+//                    catch (Exception ex)
+//                    {
+//                        Toast.makeText(MainActivity.this, "Failed to get data", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(MainActivity.this, "No data available", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
+
+
     private void addSnapshotListeners() {
-        DocumentReference settingsDocRef;
         DocumentReference rotationDocRef;
-        if(btnToggleArm.isChecked()) {
-            settingsDocRef = robo2settingsDocRef;
+        if (btnToggleArm.isChecked()) {
             rotationDocRef = robo2rotationDocRef;
-        }
-        else
-        {
-            settingsDocRef = robo1settingsDocRef;
+        } else {
             rotationDocRef = robo1rotationDocRef;
         }
-        settingsDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Toast.makeText(MainActivity.this, "listen failed", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-               if (snapshot != null && snapshot.exists()) {
-                    try {
-                        numSetting1.setText(snapshot.get("setting1").toString());
-                        numSetting2.setText(snapshot.get("setting2").toString());
-                        numSetting3.setText(snapshot.get("setting3").toString());
-                    }
-                    catch (Exception ex)
-                    {
-                        Toast.makeText(MainActivity.this, "Failed to get data", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, "No data available", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
         rotationDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,
@@ -123,15 +156,15 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "listen failed", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 if (snapshot != null && snapshot.exists()) {
                     try {
-                        txtRotation.setText(String.format("Rotation:\nx: %s, y: %s, z: %s",
-                                snapshot.get("x").toString(),
-                                snapshot.get("y").toString(),
-                                snapshot.get("z").toString()));
-                    }
-                    catch (Exception ex)
-                    {
+                        footSetting.setText(snapshot.get("footVal").toString());
+                        shoulderSetting.setText(snapshot.get("shoulderVal").toString());
+                        elbowSetting.setText(snapshot.get("elbowVal").toString());
+                        wristSetting.setText(snapshot.get("wristVal").toString());
+                        handSetting.setText(snapshot.get("handVal").toString());
+                    } catch (Exception ex) {
                         Toast.makeText(MainActivity.this, "Failed to get data", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -142,37 +175,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addListeners() {
-        btnSetting1.setOnClickListener(new View.OnClickListener() {
+
+        btnFoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SettingsChanged(1, Integer.parseInt(numSetting1.getText().toString()));
+                SettingsChanged(1);
             }
         });
-        btnSetting2.setOnClickListener(new View.OnClickListener() {
+        btnShoulder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SettingsChanged(2, Integer.parseInt(numSetting2.getText().toString()));
+                SettingsChanged(2);
             }
         });
-        btnSetting3.setOnClickListener(new View.OnClickListener() {
+        btnElbow.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                SettingsChanged(3, Integer.parseInt(numSetting3.getText().toString())); //husk at tjekke null
+                SettingsChanged(3); //husk at tjekke null
             }
         });
-        btnSetting4.setOnClickListener(new View.OnClickListener() {
+        btnWrist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SettingsChanged(4, Integer.parseInt(numSetting4.getText().toString()));
+                SettingsChanged(4);
             }
         });
-        btnSetting5.setOnClickListener(new View.OnClickListener() {
+        btnHand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SettingsChanged(5, Integer.parseInt(numSetting5.getText().toString()));
+                SettingsChanged(5);
             }
         });
-        btnToggleArm.setOnClickListener (new View.OnClickListener() {
+        btnToggleArm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addSnapshotListeners();
@@ -187,23 +222,71 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void SettingsChanged(final int setting, int value) {
-        if(value != -1)
-        {
-            DocumentReference docRef;
-            if(btnToggleArm.isChecked()) {
-                docRef = robo2settingsDocRef;
+    private void SettingsChanged(final int setting) {
+            String joint;
+            int value;
+            switch (setting) {
+                case 1:
+                    joint = "footVal";
+                    if(!footSetting.getText().toString().equals("")) {
+                        value = Integer.parseInt(footSetting.getText().toString());
+                        break;
+                    } else {
+                        Toast.makeText(MainActivity.this, "Please add a number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                case 2:
+                    joint = "shoulderVal";
+                    if(!shoulderSetting.getText().toString().equals("")) {
+                        value = Integer.parseInt(shoulderSetting.getText().toString());
+                        break;
+                    } else {
+                        Toast.makeText(MainActivity.this, "Please add a number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                case 3:
+                    joint = "elbowVal";
+                    if(!elbowSetting.getText().toString().equals("")) {
+                        value = Integer.parseInt(elbowSetting.getText().toString());
+                        break;
+                    } else {
+                        Toast.makeText(MainActivity.this, "Please add a number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                case 4:
+                    joint = "wristVal";
+                    if(!wristSetting.getText().toString().equals("")) {
+                        value = Integer.parseInt(wristSetting.getText().toString());
+                        break;
+                    } else {
+                        Toast.makeText(MainActivity.this, "Please add a number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                case 5:
+                    joint = "handVal";
+                    if(!handSetting.getText().toString().equals("")) {
+                        value = Integer.parseInt(handSetting.getText().toString());
+                        break;
+                    } else {
+                        Toast.makeText(MainActivity.this, "Please add a number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                default:
+                    Toast.makeText(MainActivity.this, "Error updating settings", Toast.LENGTH_SHORT).show();
+                    return;
             }
-            else
-            {
-                docRef = robo1settingsDocRef;
+            DocumentReference docRef;
+            if (btnToggleArm.isChecked()) {
+                docRef = robo2rotationDocRef;
+            } else {
+                docRef = robo1rotationDocRef;
             }
             docRef
-                    .update("setting" + setting, value)
+                    .update(joint, value)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(MainActivity.this, "Setting " + setting + " updated!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Updated successfully!", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -212,31 +295,42 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+         }
+
+    private void SendAll() {
+        DocumentReference docRef;
+        if (btnToggleArm.isChecked()) {
+            docRef = robo2rotationDocRef;
+        } else {
+            docRef = robo1rotationDocRef;
+        }
+        if(!footSetting.getText().toString().equals("") &&
+                !shoulderSetting.getText().toString().equals("") &&
+                !elbowSetting.getText().toString().equals("") &&
+                !wristSetting.getText().toString().equals("") &&
+                !handSetting.getText().toString().equals("")) {
+            Map<String, Object> docData = new HashMap<>();
+            docData.put("footVal", Integer.parseInt(footSetting.getText().toString()));
+            docData.put("shoulderVal", Integer.parseInt(shoulderSetting.getText().toString()));
+            docData.put("elbowVal", Integer.parseInt(elbowSetting.getText().toString()));
+            docData.put("wristVal", Integer.parseInt(wristSetting.getText().toString()));
+            docData.put("handVal", Integer.parseInt(handSetting.getText().toString()));
+
+            docRef.set(docData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(MainActivity.this, "All setting updated!", Toast.LENGTH_SHORT).show();
+                }
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(MainActivity.this, "Error updating settings: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
         else{
-            Toast.makeText(MainActivity.this, "Value is null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Please put numbers in all fields", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void SendAll(){
-        DocumentReference docRef = db.collection("test").document("rotation");
-        Map<String, Object> docData = new HashMap<>();
-        docData.put("footVal", Integer.parseInt(numSetting1.getText().toString()));
-        docData.put("shoulderVal", Integer.parseInt(numSetting2.getText().toString()));
-        docData.put("elbowVal", Integer.parseInt(numSetting3.getText().toString()));
-        docData.put("wristVal", Integer.parseInt(numSetting4.getText().toString()));
-        docData.put("handVal", Integer.parseInt(numSetting5.getText().toString()));
-        docRef.set(docData).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(MainActivity.this, "All setting updated!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MainActivity.this, "Error updating settings: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 }
