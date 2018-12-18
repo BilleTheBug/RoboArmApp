@@ -78,68 +78,6 @@ public class MainActivity extends AppCompatActivity {
         btnToggleArm = findViewById(R.id.btnToggleArm);
     }
 
-//    private void addSnapshotListeners() {
-//        DocumentReference settingsDocRef;
-//        DocumentReference rotationDocRef;
-//        if(btnToggleArm.isChecked()) {
-//            settingsDocRef = robo2settingsDocRef;
-//            rotationDocRef = robo2rotationDocRef;
-//        }
-//        else
-//        {
-//            settingsDocRef = robo1settingsDocRef;
-//            rotationDocRef = robo1rotationDocRef;
-//        }
-//        settingsDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot snapshot,
-//                                @Nullable FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Toast.makeText(MainActivity.this, "listen failed", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (snapshot != null && snapshot.exists()) {
-//                    try {
-//                        footSetting.setText(snapshot.get("setting1").toString());
-//                        shoulderSetting.setText(snapshot.get("setting2").toString());
-//                        elbowSetting.setText(snapshot.get("setting3").toString());
-//                    }
-//                    catch (Exception ex)
-//                    {
-//                        Toast.makeText(MainActivity.this, "Failed to get data", Toast.LENGTH_SHORT).show();
-//                    }
-//                } else {
-//                    Toast.makeText(MainActivity.this, "No data available", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//        rotationDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot snapshot,
-//                                @Nullable FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Toast.makeText(MainActivity.this, "listen failed", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if (snapshot != null && snapshot.exists()) {
-//                    try {
-//                        txtRotation.setText(String.format("Rotation:\nx: %s, y: %s, z: %s",
-//                                snapshot.get("x").toString(),
-//                                snapshot.get("y").toString(),
-//                                snapshot.get("z").toString()));
-//                    }
-//                    catch (Exception ex)
-//                    {
-//                        Toast.makeText(MainActivity.this, "Failed to get data", Toast.LENGTH_SHORT).show();
-//                    }
-//                } else {
-//                    Toast.makeText(MainActivity.this, "No data available", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//    }
-
 
     private void addSnapshotListeners() {
         DocumentReference rotationDocRef;
