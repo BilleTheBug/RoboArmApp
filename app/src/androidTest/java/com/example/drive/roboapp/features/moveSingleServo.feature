@@ -9,4 +9,4 @@ Feature: Move Single Servo
     When I have selected an available robot arm
     And filled in a value of the desired servo to rotate
     When I click the 'send' button
-    Then The application should move the arm by sending a message
+    Then the application should move the arm by sending a message
