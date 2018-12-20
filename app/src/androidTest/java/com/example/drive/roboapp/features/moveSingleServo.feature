@@ -1,8 +1,8 @@
 Feature: Move Single Servo
 
-  Scenario: Move a singe servo on a robot arm
-
   As a user I should be able to move a single servo of an online and available robot arm
+
+  Scenario: Move a singe servo on a robot arm
 
     Given I am in the Robot Arm Control View
     And a robot arm is online
