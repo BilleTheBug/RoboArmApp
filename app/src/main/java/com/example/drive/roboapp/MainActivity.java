@@ -1,5 +1,6 @@
 package com.example.drive.roboapp;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     EditText footSetting;
     EditText shoulderSetting;
@@ -51,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initializeComponents();
         addListeners();
-        //Sørger for at fjerne fokus fra felter, når keyboardet fjernes. virker btw ikke
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         CollectionReference robo1ColRef = db.collection("RoboArm1");
         CollectionReference robo2ColRef = db.collection("RoboArm2");
         robo1settingsDocRef = robo1ColRef.document("settings");
