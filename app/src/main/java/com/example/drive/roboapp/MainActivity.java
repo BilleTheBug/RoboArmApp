@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
         robo2settingsDocRef = robo2ColRef.document("settings");
         robo1rotationDocRef = robo1ColRef.document("rotation");
         robo2rotationDocRef = robo2ColRef.document("rotation");
-        addSnapshotListeners();
+        //addSnapshotListeners();
     }
 
     private void initializeComponents() {
