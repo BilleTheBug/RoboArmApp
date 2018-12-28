@@ -11,6 +11,7 @@ import com.example.drive.roboapp.R;
 import org.junit.Assert;
 import org.junit.Rule;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
@@ -20,6 +21,7 @@ import cucumber.api.java.en.When;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -63,15 +65,20 @@ public class UpdateServoRotationSteps {
         onView(withId(R.id.btnSendAll)).perform(click());
     }
 
-    @Then("^I should see a toast\"([^\"]*)\"$")
-    public void iShouldSeeAToast(String expected) throws Throwable {
-        if(expected.equals("success")) {
-            onView(withText(R.string.allSettingsUpdated)).inRoot(new ToastMatcher())
-                    .check(matches(withText("All setting updated!")));
-        }
-        else{
-            onView(withText(R.string.putNumberInAllFields)).inRoot(new ToastMatcher())
-                    .check(matches(withText("Please put numbers in all fields")));
-        }
+    @Then("^I should see a successfull toast$")
+    public void iShouldSeeASuccessfullToast() throws Throwable {
+        onView(withText(R.string.allSettingsUpdated)).inRoot(new ToastMatcher())
+                .check(matches(withText("All setting updated!")));
+    }
+
+    @Then("^I should see an error toast$")
+    public void iShouldSeeAnErrorToast() throws Throwable {
+        onView(withText(R.string.putNumberInAllFields)).inRoot(new ToastMatcher())
+                .check(matches(withText("Please put numbers in all fields")));
+    }
+
+    @When("^No value is in one of the rotation fields$")
+    public void noValueIsInOneOfTheRotationFields() throws Throwable {
+        onView(withId(R.id.numSetting1)).perform(replaceText(""));
     }
 }
