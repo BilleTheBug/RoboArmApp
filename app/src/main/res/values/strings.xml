@@ -13,4 +13,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="allSettingsUpdated">All setting updated!</string>
+    <string name="putNumberInAllFields">Please put numbers in all fields</string>
+    <string name="settingErrorBeforeException">Error updating settings:</string>
 </resources>

@@ -229,7 +229,7 @@ public class MainActivity extends Activity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(MainActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
          }
@@ -256,18 +256,18 @@ public class MainActivity extends Activity {
             docRef.set(docData).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(MainActivity.this, "All setting updated!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.allSettingsUpdated), Toast.LENGTH_SHORT).show();
                 }
             })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(MainActivity.this, "Error updating settings: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }
         else{
-            Toast.makeText(MainActivity.this, "Please put numbers in all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, getString(R.string.putNumberInAllFields), Toast.LENGTH_SHORT).show();
         }
     }
 }

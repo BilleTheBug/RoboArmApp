@@ -7,7 +7,6 @@ import android.support.test.rule.ActivityTestRule;
 
 import com.example.drive.roboapp.MainActivity;
 import com.example.drive.roboapp.R;
-import com.example.drive.roboapp.TestActivity;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -22,7 +21,9 @@ import cucumber.api.java.en.When;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 public class UpdateServoRotationSteps {
 
@@ -54,19 +55,23 @@ public class UpdateServoRotationSteps {
         onView(withId(R.id.numSetting3)).perform(typeText(rotation));
         onView(withId(R.id.numSetting4)).perform(typeText(rotation));
         onView(withId(R.id.numSetting5)).perform(typeText(rotation));
-        //Assert.assertNotNull(true);
     }
 
     @And("^I press submit button \"([^\"]*)\"$")
     public void iPressSubmitButton(String joint) throws Throwable {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.btnSendAll)).perform(click());
-        //Assert.assertNotNull(true);
     }
 
-    @Then("^I should see a toast with text 'Updated successfully!'$")
-    public void iShouldSeeAToastWithTextUpdatedSuccessfully() throws Throwable {
-        //onView(withText("Updated successfully!")).inRoot(withDecorView(not(activity.getWindow().getDecorView()))).check(matches(isDisplayed()));
-        Assert.assertNotNull(true);
+    @Then("^I should see a toast\"([^\"]*)\"$")
+    public void iShouldSeeAToast(String expected) throws Throwable {
+        if(expected.equals("success")) {
+            onView(withText(R.string.allSettingsUpdated)).inRoot(new ToastMatcher())
+                    .check(matches(withText("All setting updated!")));
+        }
+        else{
+            onView(withText(R.string.putNumberInAllFields)).inRoot(new ToastMatcher())
+                    .check(matches(withText("Please put numbers in all fields")));
+        }
     }
 }
