@@ -1,1 +1,10 @@
+Controller App for a robot arm.
+Uses Firestore database.
 
+
+To run:
+- Click Edit Configurations... under Run
+- Click +
+- Select Android Instrumented Tests
+- Select app under module
+- Run
