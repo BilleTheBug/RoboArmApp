@@ -16,4 +16,6 @@
     <string name="allSettingsUpdated">All setting updated!</string>
     <string name="putNumberInAllFields">Please put numbers in all fields</string>
     <string name="settingErrorBeforeException">Error updating settings:</string>
+    <string name="pleaseAddNumber">Please add a number</string>
+    <string name="updatedSuccessfully">Updated successfully!</string>
 </resources>

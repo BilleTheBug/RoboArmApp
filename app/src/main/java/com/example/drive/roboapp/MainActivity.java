@@ -3,10 +3,8 @@ package com.example.drive.roboapp;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,7 +43,6 @@ public class MainActivity extends Activity {
     DocumentReference robo1rotationDocRef;
     DocumentReference robo2rotationDocRef;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +55,7 @@ public class MainActivity extends Activity {
         robo2settingsDocRef = robo2ColRef.document("settings");
         robo1rotationDocRef = robo1ColRef.document("rotation");
         robo2rotationDocRef = robo2ColRef.document("rotation");
-        //addSnapshotListeners();
+        addSnapshotListeners();
     }
 
     private void initializeComponents() {
@@ -76,7 +73,6 @@ public class MainActivity extends Activity {
         txtRotation = findViewById(R.id.txtRotation);
         btnToggleArm = findViewById(R.id.btnToggleArm);
     }
-
 
     private void addSnapshotListeners() {
         DocumentReference rotationDocRef;
@@ -103,12 +99,21 @@ public class MainActivity extends Activity {
                         handSetting.setText(snapshot.get("handVal").toString());
                     } catch (Exception ex) {
                         Toast.makeText(MainActivity.this, "Failed to get data", Toast.LENGTH_SHORT).show();
+                        ClearFields();
                     }
                 } else {
                     Toast.makeText(MainActivity.this, "No data available", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void ClearFields() {
+        footSetting.setText("");
+        shoulderSetting.setText("");
+        elbowSetting.setText("");
+        wristSetting.setText("");
+        handSetting.setText("");
     }
 
     private void addListeners() {
@@ -169,7 +174,7 @@ public class MainActivity extends Activity {
                         value = Integer.parseInt(footSetting.getText().toString());
                         break;
                     } else {
-                        Toast.makeText(MainActivity.this, "Please add a number", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.pleaseAddNumber), Toast.LENGTH_SHORT).show();
                         return;
                     }
                 case 2:
@@ -178,7 +183,7 @@ public class MainActivity extends Activity {
                         value = Integer.parseInt(shoulderSetting.getText().toString());
                         break;
                     } else {
-                        Toast.makeText(MainActivity.this, "Please add a number", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.pleaseAddNumber), Toast.LENGTH_SHORT).show();
                         return;
                     }
                 case 3:
@@ -187,7 +192,7 @@ public class MainActivity extends Activity {
                         value = Integer.parseInt(elbowSetting.getText().toString());
                         break;
                     } else {
-                        Toast.makeText(MainActivity.this, "Please add a number", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.pleaseAddNumber), Toast.LENGTH_SHORT).show();
                         return;
                     }
                 case 4:
@@ -196,7 +201,7 @@ public class MainActivity extends Activity {
                         value = Integer.parseInt(wristSetting.getText().toString());
                         break;
                     } else {
-                        Toast.makeText(MainActivity.this, "Please add a number", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.pleaseAddNumber), Toast.LENGTH_SHORT).show();
                         return;
                     }
                 case 5:
@@ -205,7 +210,7 @@ public class MainActivity extends Activity {
                         value = Integer.parseInt(handSetting.getText().toString());
                         break;
                     } else {
-                        Toast.makeText(MainActivity.this, "Please add a number", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.pleaseAddNumber), Toast.LENGTH_SHORT).show();
                         return;
                     }
                 default:
@@ -223,7 +228,7 @@ public class MainActivity extends Activity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(MainActivity.this, "Updated successfully!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
