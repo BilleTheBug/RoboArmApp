@@ -21,6 +21,7 @@ import cucumber.api.java.en.When;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -34,7 +35,9 @@ public class UpdateServoRotationSteps {
 
     @Before("@updateServoRotation-feature")
     public void setup() {
-        activityTestRule.launchActivity(new Intent());
+        Intent goToMain = new Intent();
+        goToMain.putExtra("isTesting", true);
+        activityTestRule.launchActivity(goToMain);
         activity = activityTestRule.getActivity();
     }
 
@@ -59,10 +62,14 @@ public class UpdateServoRotationSteps {
 
     @And("^I input rotation \"([^\"]*)\" in the fields of the other joints$")
     public void iInputRotationInTheFieldsOfTheOtherJoints(String rotation) throws Throwable {
-        onView(withId(R.id.numSetting2)).perform(replaceText(rotation));
-        onView(withId(R.id.numSetting3)).perform(replaceText(rotation));
-        onView(withId(R.id.numSetting4)).perform(replaceText(rotation));
-        onView(withId(R.id.numSetting5)).perform(replaceText(rotation));
+        onView(withId(R.id.numSetting2)).perform(replaceText(""));
+        onView(withId(R.id.numSetting3)).perform(replaceText(""));
+        onView(withId(R.id.numSetting4)).perform(replaceText(""));
+        onView(withId(R.id.numSetting5)).perform(replaceText(""));
+        onView(withId(R.id.numSetting2)).perform(typeText(rotation));
+        onView(withId(R.id.numSetting3)).perform(typeText(rotation));
+        onView(withId(R.id.numSetting4)).perform(typeText(rotation));
+        onView(withId(R.id.numSetting5)).perform(typeText(rotation));
     }
 
     @And("^I press the 'foot' button$")
@@ -77,11 +84,16 @@ public class UpdateServoRotationSteps {
 
     @When("^I input rotation \"([^\"]*)\" in all fields$")
     public void iInputRotationInAllFields(String rotation) throws Throwable {
-        onView(withId(R.id.numSetting1)).perform(replaceText(rotation));
-        onView(withId(R.id.numSetting2)).perform(replaceText(rotation));
-        onView(withId(R.id.numSetting3)).perform(replaceText(rotation));
-        onView(withId(R.id.numSetting4)).perform(replaceText(rotation));
-        onView(withId(R.id.numSetting5)).perform(replaceText(rotation));
+        onView(withId(R.id.numSetting1)).perform(replaceText(""));
+        onView(withId(R.id.numSetting2)).perform(replaceText(""));
+        onView(withId(R.id.numSetting3)).perform(replaceText(""));
+        onView(withId(R.id.numSetting4)).perform(replaceText(""));
+        onView(withId(R.id.numSetting5)).perform(replaceText(""));
+        onView(withId(R.id.numSetting1)).perform(typeText(rotation));
+        onView(withId(R.id.numSetting2)).perform(typeText(rotation));
+        onView(withId(R.id.numSetting3)).perform(typeText(rotation));
+        onView(withId(R.id.numSetting4)).perform(typeText(rotation));
+        onView(withId(R.id.numSetting5)).perform(typeText(rotation));
     }
 
     @When("^No value is in at least one of the rotation fields$")
