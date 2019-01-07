@@ -14,7 +14,7 @@ Feature: UpdateServoRotation
       | 180     |
       |-1       |
       | 181     |
-      | 180     |
+      | 90      |
 
   @updateServoRotation-feature
   Scenario: Send via 'send all' button, without inputting rotation in fields
@@ -33,11 +33,11 @@ Feature: UpdateServoRotation
 
     Examples:
       | footRotation | restRotation |
-      | 0            |              |
+      | 90           |              |
       | 180          | 0            |
       |-1            | 181          |
       | 181          | 180          |
-      | 180          | -1           |
+      | 0            | -1           |
 
   @updateServoRotation-feature
   Scenario: Send via the 'foot' button, without inputting rotation in the foot joints field

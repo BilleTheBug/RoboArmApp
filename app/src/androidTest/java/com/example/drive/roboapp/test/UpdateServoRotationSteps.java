@@ -53,12 +53,31 @@ public class UpdateServoRotationSteps {
         Assert.assertNotNull(activity);
     }
 
+    @When("^I input rotation \"([^\"]*)\" in all fields$")
+    public void iInputRotationInAllFields(String rotation) throws Throwable {
+        onView(withId(R.id.numSetting1)).perform(replaceText(""));
+        onView(withId(R.id.numSetting2)).perform(replaceText(""));
+        onView(withId(R.id.numSetting3)).perform(replaceText(""));
+        onView(withId(R.id.numSetting4)).perform(replaceText(""));
+        onView(withId(R.id.numSetting5)).perform(replaceText(""));
+        onView(withId(R.id.numSetting1)).perform(typeText(rotation));
+        onView(withId(R.id.numSetting2)).perform(typeText(rotation));
+        onView(withId(R.id.numSetting3)).perform(typeText(rotation));
+        onView(withId(R.id.numSetting4)).perform(typeText(rotation));
+        onView(withId(R.id.numSetting5)).perform(typeText(rotation));
+    }
+
     @And("^I press the 'send all' button$")
     public void iPressTheSendAllButton() throws Throwable {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.btnSendAll)).perform(click());
     }
 
+    @Then("^I should see a successful toast$")
+    public void iShouldSeeASuccessfulToast() throws Throwable {
+        onView(withText(R.string.allSettingsUpdated)).inRoot(new ToastMatcher())
+                .check(matches(withText("All setting updated!")));
+    }
 
     @And("^I input rotation \"([^\"]*)\" in the fields of the other joints$")
     public void iInputRotationInTheFieldsOfTheOtherJoints(String rotation) throws Throwable {
@@ -80,20 +99,6 @@ public class UpdateServoRotationSteps {
     @When("^No value is in the foot joints rotation fields$")
     public void noValueIsInTheFootJointsRotationFields() throws Throwable {
         onView(withId(R.id.numSetting1)).perform(replaceText(""));
-    }
-
-    @When("^I input rotation \"([^\"]*)\" in all fields$")
-    public void iInputRotationInAllFields(String rotation) throws Throwable {
-        onView(withId(R.id.numSetting1)).perform(replaceText(""));
-        onView(withId(R.id.numSetting2)).perform(replaceText(""));
-        onView(withId(R.id.numSetting3)).perform(replaceText(""));
-        onView(withId(R.id.numSetting4)).perform(replaceText(""));
-        onView(withId(R.id.numSetting5)).perform(replaceText(""));
-        onView(withId(R.id.numSetting1)).perform(typeText(rotation));
-        onView(withId(R.id.numSetting2)).perform(typeText(rotation));
-        onView(withId(R.id.numSetting3)).perform(typeText(rotation));
-        onView(withId(R.id.numSetting4)).perform(typeText(rotation));
-        onView(withId(R.id.numSetting5)).perform(typeText(rotation));
     }
 
     @When("^No value is in at least one of the rotation fields$")
@@ -126,9 +131,5 @@ public class UpdateServoRotationSteps {
                 .check(matches(withText("Please put numbers in all fields")));
     }
 
-    @Then("^I should see a successful toast$")
-    public void iShouldSeeASuccessfulToast() throws Throwable {
-        onView(withText(R.string.allSettingsUpdated)).inRoot(new ToastMatcher())
-                .check(matches(withText("All setting updated!")));
-    }
+
 }
