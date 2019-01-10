@@ -2,7 +2,8 @@ Feature: UpdateServoRotation
   Update the database when rotation is inputted
 
   @updateServoRotation-feature
-  Scenario Outline: Input rotation in valid format in all fields, and send via 'send all'-button
+  Scenario Outline: Input rotation in valid format in all fields,
+                    and send via 'send all'-button
     Given I am in the robot controller activity
     When I input rotation "<rotation>" in all fields
     And I press the 'send all' button

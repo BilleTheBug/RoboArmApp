@@ -23,7 +23,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.github.controlwear.virtual.joystick.android.JoystickView;
+
 public class MainActivity extends Activity {
+    final int JOYSTICK_UPDATE_DELAY = 400;
+    final int STRENGTH_MULTIPLIER = 10;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     EditText footSetting;
     EditText shoulderSetting;
@@ -38,10 +43,10 @@ public class MainActivity extends Activity {
     Button btnHand;
     Button btnSendAll;
     ToggleButton btnToggleArm;
-    DocumentReference robo1settingsDocRef;
-    DocumentReference robo2settingsDocRef;
-    DocumentReference robo1rotationDocRef;
-    DocumentReference robo2rotationDocRef;
+    DocumentReference robo1DocRef;
+    DocumentReference robo2DocRef;
+    JoystickView leftJoy;
+    JoystickView rightJoy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +56,8 @@ public class MainActivity extends Activity {
         addListeners();
         CollectionReference robo1ColRef = db.collection("RoboArm1");
         CollectionReference robo2ColRef = db.collection("RoboArm2");
-        robo1settingsDocRef = robo1ColRef.document("settings");
-        robo2settingsDocRef = robo2ColRef.document("settings");
-        robo1rotationDocRef = robo1ColRef.document("rotation");
-        robo2rotationDocRef = robo2ColRef.document("rotation");
+        robo1DocRef = robo1ColRef.document("rotation");
+        robo2DocRef = robo2ColRef.document("rotation");
         if(!getIntent().getBooleanExtra("isTesting", false))
         {
             addSnapshotListeners();
@@ -62,6 +65,8 @@ public class MainActivity extends Activity {
     }
 
     private void initializeComponents() {
+        leftJoy = findViewById(R.id.joyViewLeft);
+        rightJoy = findViewById(R.id.joyViewRight);
         footSetting = findViewById(R.id.numSetting1);
         shoulderSetting = findViewById(R.id.numSetting2);
         elbowSetting = findViewById(R.id.numSetting3);
@@ -80,9 +85,9 @@ public class MainActivity extends Activity {
     private void addSnapshotListeners() {
         DocumentReference rotationDocRef;
         if (btnToggleArm.isChecked()) {
-            rotationDocRef = robo2rotationDocRef;
+            rotationDocRef = robo2DocRef;
         } else {
-            rotationDocRef = robo1rotationDocRef;
+            rotationDocRef = robo1DocRef;
         }
         rotationDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -121,6 +126,24 @@ public class MainActivity extends Activity {
 
     private void addListeners() {
 
+        leftJoy.setOnMoveListener(new JoystickView.OnMoveListener() {
+            @Override
+            public void onMove(int angle, int strength) {
+                txtRotation.setText(strength + " degrees");
+                SendJoystickRotation(angle, strength, 1);
+            }
+        },JOYSTICK_UPDATE_DELAY);
+        rightJoy.setOnMoveListener(new JoystickView.OnMoveListener() {
+            @Override
+            public void onMove(int angle, int strength) {
+                SendJoystickRotation(angle, strength, 2);
+                txtRotation.setText(strength + " degrees");
+            }
+        },JOYSTICK_UPDATE_DELAY);
+
+
+
+
         btnFoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +160,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                SettingsChanged(3); //husk at tjekke null
+                SettingsChanged(3);
             }
         });
         btnWrist.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +188,179 @@ public class MainActivity extends Activity {
             }
         });
 
+    }
+
+    private void SendJoystickRotation(int angle, int strength, int i) {
+        if(angle < 40 || angle > 320)
+        {
+            if(i == 1)
+            {
+                int rotation = CalculateRotation(Integer.parseInt(footSetting.getText().toString()), strength, true);
+                footSetting.setText(Integer.toString(rotation));
+                robo1DocRef.update("footVal", rotation )
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+            else
+            {
+                int rotation = CalculateRotation(Integer.parseInt(wristSetting.getText().toString()), strength, true);
+                wristSetting.setText(Integer.toString(rotation));
+                robo1DocRef.update("wristVal", rotation )
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        }
+        else if(angle > 50 && angle < 130)
+        {
+            if(i == 1)
+            {
+                int rotation = CalculateRotation(Integer.parseInt(elbowSetting.getText().toString()), strength, true);
+                elbowSetting.setText(Integer.toString(rotation));
+                robo1DocRef.update("elbowVal", rotation )
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+            else
+            {
+                int rotation = CalculateRotation(Integer.parseInt(shoulderSetting.getText().toString()), strength, true);
+                shoulderSetting.setText(Integer.toString(rotation));
+                robo1DocRef.update("shoulderVal", rotation )
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        }
+        else if(angle > 140 && angle < 220)
+        {
+            if(i == 1)
+            {
+                int rotation = CalculateRotation(Integer.parseInt(footSetting.getText().toString()), strength, false);
+                footSetting.setText(Integer.toString(rotation));
+                robo1DocRef.update("footVal", rotation )
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+            else
+            {
+                int rotation = CalculateRotation(Integer.parseInt(wristSetting.getText().toString()), strength, false);
+                wristSetting.setText(Integer.toString(rotation));
+                robo1DocRef.update("wristVal", rotation )
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+
+        }
+        else if(angle > 230 && angle < 310)
+        {
+            if(i == 1)
+            {
+                int rotation = CalculateRotation(Integer.parseInt(elbowSetting.getText().toString()), strength, false);
+                elbowSetting.setText(Integer.toString(rotation));
+                robo1DocRef.update("elbowVal", rotation )
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+            else
+                {
+                    int rotation = CalculateRotation(Integer.parseInt(shoulderSetting.getText().toString()), strength, false);
+                    shoulderSetting.setText(Integer.toString(rotation));
+                    robo1DocRef.update("shoulderVal", rotation )
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+            }
+        }
+    }
+
+    private int CalculateRotation(int rotation, int strength, boolean increase) {
+        int result;
+            if(increase)
+                result = rotation + (strength / STRENGTH_MULTIPLIER);
+            else
+                result = rotation - (strength / STRENGTH_MULTIPLIER);
+        if(result > 180)
+            result = 180;
+        else if(result < 0)
+            result = 0;
+        return result;
     }
 
     private void SettingsChanged(final int setting) {
@@ -222,9 +418,9 @@ public class MainActivity extends Activity {
             }
             DocumentReference docRef;
             if (btnToggleArm.isChecked()) {
-                docRef = robo2rotationDocRef;
+                docRef = robo2DocRef;
             } else {
-                docRef = robo1rotationDocRef;
+                docRef = robo1DocRef;
             }
             docRef
                     .update(joint, value)
@@ -245,9 +441,9 @@ public class MainActivity extends Activity {
     private void SendAll() {
         DocumentReference docRef;
         if (btnToggleArm.isChecked()) {
-            docRef = robo2rotationDocRef;
+            docRef = robo2DocRef;
         } else {
-            docRef = robo1rotationDocRef;
+            docRef = robo1DocRef;
         }
         if(!footSetting.getText().toString().equals("") &&
                 !shoulderSetting.getText().toString().equals("") &&

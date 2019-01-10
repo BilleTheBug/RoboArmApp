@@ -22,6 +22,35 @@
         app:layout_constraintStart_toEndOf="@+id/btnSetting3"
         app:layout_constraintTop_toBottomOf="@+id/numSetting2" />
 
+    <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/joyViewLeft"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        app:JV_backgroundSizeRatio="65%"
+        app:JV_buttonSizeRatio="35%"
+        custom:JV_fixedCenter="false"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintStart_toStartOf="parent" />
+
+
+    <io.github.controlwear.virtual.joystick.android.JoystickView
+        android:id="@+id/joyViewRight"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        app:JV_backgroundSizeRatio="65%"
+        app:JV_buttonSizeRatio="35%"
+        app:JV_fixedCenter="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <EditText
         android:id="@+id/numSetting2"
         android:layout_width="wrap_content"
