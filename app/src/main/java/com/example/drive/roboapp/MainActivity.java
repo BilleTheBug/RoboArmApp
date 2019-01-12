@@ -35,6 +35,7 @@ public class MainActivity extends Activity {
     EditText elbowSetting;
     EditText wristSetting;
     EditText handSetting;
+    EditText delaySetting;
     TextView txtRotation;
     Button btnFoot;
     Button btnShoulder;
@@ -42,9 +43,11 @@ public class MainActivity extends Activity {
     Button btnWrist;
     Button btnHand;
     Button btnSendAll;
+    Button btnDelay;
     ToggleButton btnToggleArm;
     DocumentReference robo1DocRef;
     DocumentReference robo2DocRef;
+    DocumentReference robo1SettingsDocRef;
     JoystickView leftJoy;
     JoystickView rightJoy;
 
@@ -56,6 +59,7 @@ public class MainActivity extends Activity {
         addListeners();
         CollectionReference robo1ColRef = db.collection("RoboArm1");
         CollectionReference robo2ColRef = db.collection("RoboArm2");
+        robo1SettingsDocRef = robo1ColRef.document("settings");
         robo1DocRef = robo1ColRef.document("rotation");
         robo2DocRef = robo2ColRef.document("rotation");
         if(!getIntent().getBooleanExtra("isTesting", false))
@@ -65,6 +69,8 @@ public class MainActivity extends Activity {
     }
 
     private void initializeComponents() {
+        delaySetting = findViewById(R.id.numDelay);
+        btnDelay = findViewById(R.id.btnDelay);
         leftJoy = findViewById(R.id.joyViewLeft);
         rightJoy = findViewById(R.id.joyViewRight);
         footSetting = findViewById(R.id.numSetting1);
@@ -78,7 +84,6 @@ public class MainActivity extends Activity {
         btnWrist = findViewById(R.id.btnSetting4);
         btnHand = findViewById(R.id.btnSetting5);
         btnSendAll = findViewById(R.id.btnSendAll);
-        txtRotation = findViewById(R.id.txtRotation);
         btnToggleArm = findViewById(R.id.btnToggleArm);
     }
 
@@ -141,7 +146,12 @@ public class MainActivity extends Activity {
             }
         },JOYSTICK_UPDATE_DELAY);
 
-
+        btnDelay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateDelay();
+            }
+        });
 
 
         btnFoot.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +200,23 @@ public class MainActivity extends Activity {
 
     }
 
+    private void UpdateDelay() {
+        if(!delaySetting.getText().toString().equals("")) {
+            int delay = Integer.parseInt(delaySetting.getText().toString());
+            robo1SettingsDocRef.update("delayVal", delay).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(MainActivity.this, "Delay setting updated!", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
     private void SendJoystickRotation(int angle, int strength, int i) {
         if(angle < 40 || angle > 320)
         {
@@ -201,7 +228,6 @@ public class MainActivity extends Activity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -219,7 +245,6 @@ public class MainActivity extends Activity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -240,7 +265,6 @@ public class MainActivity extends Activity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -258,7 +282,6 @@ public class MainActivity extends Activity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -279,7 +302,6 @@ public class MainActivity extends Activity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -297,7 +319,6 @@ public class MainActivity extends Activity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -319,7 +340,6 @@ public class MainActivity extends Activity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -337,7 +357,6 @@ public class MainActivity extends Activity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(MainActivity.this, getString(R.string.updatedSuccessfully), Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
