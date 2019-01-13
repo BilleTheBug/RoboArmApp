@@ -132,13 +132,13 @@ public class MainActivity extends Activity {
         leftJoy.setOnMoveListener(new JoystickView.OnMoveListener() {
             @Override
             public void onMove(int angle, int strength) {
-                SendJoystickRotation(angle, strength, 1);
+                SendJoystickRotation(angle, strength, true);
             }
         },JOYSTICK_UPDATE_DELAY);
         rightJoy.setOnMoveListener(new JoystickView.OnMoveListener() {
             @Override
             public void onMove(int angle, int strength) {
-                SendJoystickRotation(angle, strength, 2);
+                SendJoystickRotation(angle, strength, false);
             }
         },JOYSTICK_UPDATE_DELAY);
 
@@ -213,148 +213,50 @@ public class MainActivity extends Activity {
             Toast.makeText(MainActivity.this, getString(R.string.pleaseAddNumber), Toast.LENGTH_SHORT).show();
     }
 
-    private void SendJoystickRotation(int angle, int strength, int i) {
+    private void SendJoystickRotation(int angle, int strength, boolean DpadLeft) {
         if(angle < 40 || angle > 320)
         {
-            if(i == 1)
+            if(DpadLeft)
             {
                 SendRotation(strength, "footVal", footSetting, true);
             }
             else
             {
                 SendRotation(strength, "wristVal", wristSetting, true);
-//                int rotation = CalculateRotation(Integer.parseInt(wristSetting.getText().toString()), strength, true);
-//                wristSetting.setText(Integer.toString(rotation));
-//                robo1DocRef.update("wristVal", rotation )
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
             }
         }
         else if(angle > 50 && angle < 130)
         {
-            if(i == 1)
+            if(DpadLeft)
             {
                 SendRotation(strength, "elbowVal", elbowSetting, true);
-//                int rotation = CalculateRotation(Integer.parseInt(elbowSetting.getText().toString()), strength, true);
-//                elbowSetting.setText(Integer.toString(rotation));
-//                robo1DocRef.update("elbowVal", rotation )
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
             }
             else
             {
                 SendRotation(strength, "shoulderVal", shoulderSetting, true);
-//                int rotation = CalculateRotation(Integer.parseInt(shoulderSetting.getText().toString()), strength, true);
-//                shoulderSetting.setText(Integer.toString(rotation));
-//                robo1DocRef.update("shoulderVal", rotation )
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
             }
         }
         else if(angle > 140 && angle < 220)
         {
-            if(i == 1)
+            if(DpadLeft)
             {
                 SendRotation(strength, "footVal", footSetting, false);
-//                int rotation = CalculateRotation(Integer.parseInt(footSetting.getText().toString()), strength, false);
-//                footSetting.setText(Integer.toString(rotation));
-//                robo1DocRef.update("footVal", rotation )
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
             }
             else
             {
                 SendRotation(strength, "wristVal", wristSetting, false);
-//                int rotation = CalculateRotation(Integer.parseInt(wristSetting.getText().toString()), strength, false);
-//                wristSetting.setText(Integer.toString(rotation));
-//                robo1DocRef.update("wristVal", rotation )
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
             }
 
         }
         else if(angle > 230 && angle < 310)
         {
-            if(i == 1)
+            if(DpadLeft)
             {
                 SendRotation(strength, "elbowVal", elbowSetting, false);
-//                int rotation = CalculateRotation(Integer.parseInt(elbowSetting.getText().toString()), strength, false);
-//                elbowSetting.setText(Integer.toString(rotation));
-//                robo1DocRef.update("elbowVal", rotation )
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
             }
             else
                 {
                     SendRotation(strength, "shoulderVal", shoulderSetting, false);
-//                    int rotation = CalculateRotation(Integer.parseInt(shoulderSetting.getText().toString()), strength, false);
-//                    shoulderSetting.setText(Integer.toString(rotation));
-//                    robo1DocRef.update("shoulderVal", rotation )
-//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                }
-//                            })
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Toast.makeText(MainActivity.this, getString(R.string.settingErrorBeforeException) + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
             }
         }
     }
