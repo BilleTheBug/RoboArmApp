@@ -36,7 +36,6 @@ public class MainActivity extends Activity {
     EditText wristSetting;
     EditText handSetting;
     EditText delaySetting;
-    TextView txtRotation;
     Button btnFoot;
     Button btnShoulder;
     Button btnElbow;
@@ -134,7 +133,6 @@ public class MainActivity extends Activity {
         leftJoy.setOnMoveListener(new JoystickView.OnMoveListener() {
             @Override
             public void onMove(int angle, int strength) {
-                txtRotation.setText(strength + " degrees");
                 SendJoystickRotation(angle, strength, 1);
             }
         },JOYSTICK_UPDATE_DELAY);
@@ -142,7 +140,6 @@ public class MainActivity extends Activity {
             @Override
             public void onMove(int angle, int strength) {
                 SendJoystickRotation(angle, strength, 2);
-                txtRotation.setText(strength + " degrees");
             }
         },JOYSTICK_UPDATE_DELAY);
 
